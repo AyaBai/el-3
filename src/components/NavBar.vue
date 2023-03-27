@@ -39,71 +39,67 @@
 
 <template>
   <el-container>
-    <el-header type="flex">
-    <div class="navbar_up">
-      <el-select v-model="value" class="m-2 list_name" placeholder="Название воронки">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
+    <div type="flex" class="header">
+      <div class="navbar_up">
+        <el-select v-model="value" class="m-2 list_name" placeholder="Название воронки">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+        <el-input
+          v-model="input2"
+          class="w-5 m-2 navbar_input"
+          size="small"
+          placeholder="Поиск + фильтр"
+          :prefix-icon="Search"
         />
-      </el-select>
-      <el-input
-        v-model="input2"
-        class="w-50 m-2 navbar_input"
-        placeholder="Поиск + фильтр"
-        :prefix-icon="Search"
-      />
-      <el-button class="navbar_btn" type="primary">Добавить сделку</el-button>
-      <el-button class="navbar_bell" :icon="Bell" circle></el-button>
-    </div>
-  
-    <div class="navbar_bottom">
-      <div>
-        <el-button type="primary" round>Воронка</el-button>
-        <el-button round>Список</el-button>
+        <el-button class="navbar_btn" type="primary">Добавить сделку</el-button>
+        <el-button class="navbar_bell" :icon="Bell" circle></el-button>
+      </div>
+    
+      <div class="navbar_bottom">
+        <div>
+          <el-button type="primary" round>Воронка</el-button>
+          <el-button round>Список</el-button>
+        </div>
+        <div>
+          <el-space direction="horizontal">
+            <el-text class="mx-1" size='small'>Итого:</el-text><el-text class="mx-1">3 580 800</el-text>
+            <el-text class="mx-1" size='small'>Успешных:</el-text><el-text class="mx-1" type="success"> 3 580 800</el-text>
+            <el-text class="mx-1" size='small'>Не успешных:</el-text><el-text class="mx-1" type="danger"> 3 580 800</el-text>
+          </el-space>
+        </div>
       </div>
     </div>
-    </el-header>
   </el-container>
 </template>
 
 <style scoped lang="sass">
-  .cover
-    // display: flex
-    flex-direction: row
-    justify-content: flex-start
-
-    outline: 2px solid green
+  .header
+    display: flex
+    justify-content: space-between
+    flex-direction: column
     width: 1374px
-    height: 100px
+    padding: 16px 8px 8px 16px
+    // outline: 2px solid turquoise
 
   .navbar_up
-    width: 1350px
-    height: 32px
-
-  .navbar_bottom
-
-  .list_name
-    width: 177px
-    height: 32px
-    // margin: 18px 12px 10px 16px
-
-  .navbar_input
-    width: 925px
-    height: 32px
-    padding: 5px 32px
-    // margin: 18px 12px 10px 0px
+    display: flex
+    justify-content: space-between
+    flex-direction: row
+    // outline: 2px solid black
+    margin: 16px 8px 8px 16px
 
   .navbar_btn
-    // margin: 18px 12px 10px 0px
+    padding: 5px 16px 5px 16px
 
-  .navbar_bell
-    // margin: 16px 23px 10px 0px
+  .navbar_bottom
+    display: flex
+    justify-content: space-between
+    flex-direction: row
+    // outline: 2px solid yellow
 
- 
-
-
-  
 </style>

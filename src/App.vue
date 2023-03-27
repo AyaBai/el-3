@@ -7,7 +7,7 @@
 </script>
 
 <template>
-  <div class="container">
+  <div class="common-layout">
   
     <div>
       <RightNavBar></RightNavBar>
@@ -21,12 +21,9 @@
 </template>
 
 <style lang="sass">
-  .container
+  .common-layout
     display: flex
-    flex-direction: row
-    width: 1440px
-    height: 934px
-    color: #606266
+    flex-direction: row 
     outline: 4px solid blueviolet
 
 
