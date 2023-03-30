@@ -78,6 +78,10 @@
 </template>
 
 <style scoped lang="sass">
+  html, body
+    padding:0
+    margin:0
+    
   .header
     display: flex
     justify-content: space-between

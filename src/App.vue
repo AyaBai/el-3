@@ -21,10 +21,17 @@
 </template>
 
 <style lang="sass">
+  html, body
+    padding:0
+    margin:0
+    
   .common-layout
     display: flex
     flex-direction: row 
     outline: 4px solid blueviolet
+    background-color: #fff
+    width: 100%
+
 
 
 </style>

@@ -19,36 +19,41 @@
 </template>
 
 <style scoped lang="sass">
+
   .block
     display: flex
-    justify-content: space-between
+    // justify-content: space-between
     flex-direction: column
     outline: 2px solid blue
+    height: 100%
 
   .burger_btn,
   .funnel_btn,
   .check_btn,
   .id_btn
+    display: inline-block
     background-repeat: no-repeat
     background-size: contain
 
   .burger_btn
     background-image: url(/menu_FILL.svg)
-    padding: 24px 8px    
+    padding: 24px 8px
+    width: 40px
+    height: 40px  
 
   .funnel_btn
-    background-image: url(/funnel.svg)
+    background-image: url(/Funnel.svg)
     padding: 10px
 
   .check_btn
-    background-image: url(/check2.svg)
+    background-image: url(/Check.svg)
     padding: 10px
 
   .id_btn
-    background-image: url(check1.svg)
+    background-image: url(IdCard.svg)
     padding: 10px
-    width: 20px
-    height: 20px
+    width: 40px
+    height: 24px
 
   
 
