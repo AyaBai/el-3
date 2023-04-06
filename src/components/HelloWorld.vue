@@ -2,8 +2,72 @@
   import {Tickets} from '@element-plus/icons-vue'
 
   export default {
+    mounted() {
+      const dealCols = document.querySelectorAll('.deal_cell');
+      // const dealCols2 = document.querySelectorAll('.zone2');
+      
+      // dealCols2.ondrgaover = allowDrop;
+
+      // function allowDrop
+      // function dragover_handler(event) {
+      //  event.preventDefault();
+      //  event.dataTransfer.dropEffect = "move";
+      // };
+
+      // function drop_handler(event) {
+      //  event.preventDefault();
+      //  const data = event.dataTransfer.getData("text/plain");
+      //  event.target.appendChild(document.getElementsByClassName('.zone1'));
+      // }
+
+      for (const item of dealCols){
+        // console.log ('hello,', item)
+        item.onDragOver = function (event) {
+        console.log ('hello')
+        event.preventDefault();
+       //  item.onDragOver = function(ev) {
+       //    ev.preventDefault();
+       //    ev.dataTransfer.dropEffect = "move";
+       // }
+      }
+        
+      }
+
+    },
+    methods: {
+
+      dragstart_handler(event) {
+        event.dataTransfer.setData('id', event.target.id);
+        // console.log(itemId);
+        event.dataTransfer.effectAllowed = "move";
+      },
+
+      dragover_handler(event) {
+        // console.log('dragover');
+       event.preventDefault();
+       event.dataTransfer.dropEffect = "move";
+      },
+      drop_handler(event) {
+        // console.log('drop');
+       event.preventDefault();
+       let itemId = event.dataTransfer.getData('id');
+       // console.log(itemId);
+       event.target.appendChild(document.getElementById(itemId));
+
+      }
+
+    },
     data() {
           return {
+            data: '',
+            search: '',
+            selectedTag: null,
+            tags: [],
+            restaurants: [
+              { id: 1, value: 'cell-1'},
+              { id: 2, value: 'cell-2'}
+              ],
+            // dragged: null
             items: [
               {
                 number:'200',
@@ -11,7 +75,19 @@
                 name:'Название сделки', 
                 icon:'',
                 calendar:'15.03.2022',
-                time:'23:00'
+                time:'23:00',
+                id:'1'
+
+              },
+
+              {
+                number:'200',
+                result:'100 000 000₸',
+                name:'Название сделки', 
+                icon:'',
+                calendar:'15.03.2022',
+                time:'23:00',
+                id:'2'
 
               }
             ],
@@ -24,6 +100,7 @@
           }
     }
   }
+
 
 </script>
 
@@ -39,8 +116,10 @@
             <div class="grid-content text-[#606266] bg-transparent text-xs">{{cell.percent}}</div>
           </div>
 
-          <div  class="deal_cell">
-            <div v-for="item in items" :key="item.number" class="cover_cell">
+          <!-- <div class="border-red-300 w-20 h-20"></div> -->
+
+          <div id="target" class="deal_cell zone1" :ondrop="drop_handler" :ondragover="dragover_handler">
+            <div v-for="item in items" :key="item.number" class="cover_cell" draggable="true">
               <div class="cell_up">
                 <span class="number_cell">
                   <img src="/Union.svg">
@@ -68,8 +147,15 @@
             <div class="grid-content text-[#606266] bg-transparent text-xs">{{cell.percent}}</div>
           </div>
 
-          <div  class="deal_cell">
-            <div v-for="item in items" :key="item.number" class="cover_cell">
+          <div  class="deal_cell zone-2">
+            <div
+              :id="item.id"
+              v-for="item in items" :key="item.number" 
+              draggable="true"
+              class="cover_cell"
+              :ondragstart= "dragstart_handler"
+              >
+
               <div class="cell_up">
                 <span class="number_cell">
                   <img src="/Union.svg">
@@ -113,6 +199,7 @@
   
   .main_list
     // outline: 2px solid red
+    height: 80%
     background-color: #F2F3F5
 
   .el-row 
@@ -141,12 +228,8 @@
     color: #fff
 
   .deal_cell
-    margin-right: 20px
-    display: inline-block
     // outline: 2px solid orangered
-    background: #FFFFFF
-    width: 203px
-    // height: 107px
+    background: #ddd
     border-radius: 0px 4px 4px 0px
     padding: 12px 8px
     
@@ -190,6 +273,8 @@
     display: flex
     justify-content: space-between
     flex-direction: column
+    background-color: #fff
+    margin-bottom: 10px
 
   .cell_up
     display: flex

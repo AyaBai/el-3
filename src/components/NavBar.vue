@@ -56,12 +56,12 @@
           placeholder="Поиск + фильтр"
           :prefix-icon="Search"
         />
-        <el-button class="navbar_btn" type="primary">Добавить сделку</el-button>
-        <el-button class="navbar_bell" :icon="Bell" circle></el-button>
+        <el-button class="navbar_btn mt-2" type="primary">Добавить сделку</el-button>
+        <el-button class="navbar_bell mt-2" :icon="Bell" circle></el-button>
       </div>
     
       <div class="navbar_bottom">
-        <div>
+        <div class="ml-4">
           <el-button type="primary" round>Воронка</el-button>
           <el-button round>Список</el-button>
         </div>
@@ -87,7 +87,7 @@
     justify-content: space-between
     flex-direction: column
     width: 1374px
-    padding: 16px 8px 8px 16px
+    padding: 16px 8px 8px 0px
     // outline: 2px solid turquoise
 
   .navbar_up
@@ -95,7 +95,7 @@
     justify-content: space-between
     flex-direction: row
     // outline: 2px solid black
-    margin: 16px 8px 8px 16px
+    margin: 16px 8px 8px 8px
 
   .navbar_btn
     padding: 5px 16px 5px 16px

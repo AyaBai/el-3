@@ -1,0 +1,99 @@
+<div id="app">
+  <el-row>
+    <el-autocomplete v-model="search" :fetch-suggestions="querySearch" class="inline-input" placeholder="Please Input" @input="selectedTag = null" @select="handleSelect">
+    </el-autocomplete>
+    <el-button class="add-btn" type="primary" :disabled="!selectedTag" circle @click="addTag">
+      <el-icon>
+        <plus></plus>
+      </el-icon>
+    </el-button>
+  </el-row>
+
+  <div class="tags-wrap">
+    <div v-for="(item, index) in tags" :id="`dropzone${index}`" :key="item.id" :ref="item.value" class="dropzone" @mousedown="bindDraggable(item.value)" @mouseup="onDragEnd">
+      <el-tag type="success" effect="plain" closable @close="tags.splice(index, 1)">
+        {{ item.value }}
+      </el-tag>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { Plus } from '@element-plus/icons-vue';
+
+const app = Vue.createApp({
+  data() {
+    return {
+      search: '',
+      selectedTag: null,
+      tags: [],
+      restaurants: [
+        { id: 1, value: 'vue', link: 'https://github.com/vuejs/vue' },
+        { id: 2, value: 'element', link: 'https://github.com/ElemeFE/element' },
+        { id: 3, value: 'cooking', link: 'https://github.com/ElemeFE/cooking' },
+        { id: 4, value: 'mint-ui', link: 'https://github.com/ElemeFE/mint-ui' },
+        { id: 5, value: 'vuex', link: 'https://github.com/vuejs/vuex' },
+        { id: 6, value: 'vue-router', link: 'https://github.com/vuejs/vue-router' },
+        { id: 7, value: 'babel', link: 'https://github.com/babel/babel' }
+      ],
+      dragged: null
+    }
+  },
+  mounted() {
+    document.addEventListener('dragstart', this.onDragStart, false)
+    document.addEventListener('dragend', this.onDragEnd, false)
+    document.addEventListener('dragover', this.onDragOver, false)
+    document.addEventListener('drop', this.onDrop, false)
+  },
+  beforeUnmount() {
+    document.removeEventListener('dragstart', this.onDragStart, false)
+    document.removeEventListener('dragend', this.onDragEnd, false)
+    document.removeEventListener('dragover', this.onDragOver, false)
+    document.removeEventListener('drop', this.onDrop, false)
+  },
+  methods: {
+    querySearch(queryString, cb) {
+      cb(this.restaurants.filter(item => 
+        (queryString ? item.value.toLowerCase().includes(queryString.toLowerCase()) : true) && 
+        !this.tags.some(tag => tag.id === item.id)))
+    },
+    handleSelect(item) {
+      this.selectedTag = item
+    },
+    addTag() {
+      this.tags.push(this.selectedTag)
+      this.selectedTag = null
+      this.search = ''
+    },
+    bindDraggable(item) {
+      this.$refs[item][0].setAttribute('draggable', true)
+      this.$refs[item][0].style.transform = 'translateZ(0px)'
+    },
+    onDragStart(event) {
+      this.dragged = event.target
+      this.dragged.style.opacity = 0.5
+      event.dataTransfer.effectAllowed = 'move';
+    },
+    onDragEnd() {
+      this.dragged.setAttribute('draggable', false)
+      this.dragged.style.cssText = ''
+    },
+    onDragOver(event) {
+      event.preventDefault()
+
+      if (event.target.classList.contains('dropzone')) {
+        const id1 = +(this.dragged.getAttribute('id').slice(8))
+        const id2 = +(event.target.getAttribute('id').slice(8))
+        const temp = this.tags.splice(id1, 1)[0]
+        this.tags.splice(id2, 0, temp)
+      }
+    },
+    onDrop(event) {
+      event.preventDefault()
+    }
+  }
+})
+
+app.use(ElementPlus).component('plus', Plus).mount("#app");
+
+</script>
